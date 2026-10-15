@@ -54,11 +54,32 @@ Los errores no deberían revelar contraseñas, tokens, cookies de sesión, crede
 
 ## 3. Frontera cliente-servidor
 
-1. Trabajo del navegador:
-2. Trabajo del servidor:
-3. Modificación local del HTML:
-4. Validación duplicada:
-5. Tres ventajas y dos costes:
+**1. Trabajo del navegador:**
+
+El navegador actúa como cliente. Envía peticiones HTTP al servidor, recibe las respuestas y representa el contenido HTML para que el usuario pueda visualizarlo e interactuar con la página. También puede ejecutar JavaScript, validar datos antes de enviarlos y modificar elementos de la interfaz.
+
+**2. Trabajo del servidor:**
+
+El servidor recibe las peticiones HTTP, identifica la ruta y el método solicitados, ejecuta la lógica correspondiente y devuelve una respuesta con un estado HTTP, unas cabeceras y, cuando procede, un cuerpo. En Hello Server, Spring Boot y Tomcat permiten atender las peticiones, mientras que `HelloController` define la lógica de los endpoints. Por ejemplo, `/` devuelve HTML y `/api/hello` devuelve datos JSON.
+
+**3. Modificación local del HTML:**
+
+Las herramientas de desarrollo del navegador permiten modificar temporalmente el HTML mostrado, por ejemplo, cambiar el texto de un encabezado. Esta modificación afecta a la representación local de la página, pero no modifica el código fuente del servidor ni el archivo original. Si se vuelve a cargar la página, el navegador solicita de nuevo el contenido al servidor y la modificación temporal desaparece, salvo que exista algún mecanismo que la guarde.
+
+**4. Validación duplicada:**
+
+La validación en el cliente permite detectar errores rápidamente y mejorar la experiencia del usuario antes de enviar los datos. Sin embargo, no es suficiente como medida de seguridad, porque el cliente puede manipularse o evitarse. Por eso, el servidor debe validar de nuevo los datos recibidos y aplicar las reglas de negocio antes de procesarlos o guardarlos.
+
+**5. Tres ventajas y dos costes de generar contenido dinámico en el servidor:**
+
+Ventajas:
+- Permite personalizar las respuestas según los datos, las peticiones y los permisos del usuario.
+- Centraliza la lógica de negocio y facilita aplicar reglas y controles de seguridad.
+- Puede generar respuestas estructuradas, como HTML o JSON, para distintos tipos de clientes.
+
+Costes:
+- Requiere recursos de servidor, como CPU y memoria, para procesar las peticiones y generar respuestas.
+- Aumenta la complejidad de la aplicación, ya que hay que mantener, probar y desplegar la lógica del servidor.
 
 ## 4. Recorrido y mecanismos
 
