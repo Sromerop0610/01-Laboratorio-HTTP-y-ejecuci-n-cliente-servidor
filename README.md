@@ -7,6 +7,7 @@
 - Java: Eclipse Temurin 25.0.4.1 LTS
 - Maven Wrapper: Apache Maven 3.9.11
 - Herramienta HTTP utilizada: cURL (curl.exe) en PowerShell
+- Enlace al repositorio: https://github.com/Sromerop0610/01-Laboratorio-HTTP-y-ejecuci-n-cliente-servidor
 
 ## 1. Representaciones
 
