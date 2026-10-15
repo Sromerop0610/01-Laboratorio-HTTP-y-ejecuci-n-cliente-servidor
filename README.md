@@ -126,13 +126,19 @@ En resumen, los tres mecanismos permiten generar respuestas dinámicas, pero dif
 
 | Criterio | Spring Boot | Laravel |
 |---|---|---|
-| Lenguaje y runtime | | |
-| Ejecución | | |
-| Tipado y pruebas | | |
-| Despliegue | | |
-| Papel didáctico | | |
+| Lenguaje y runtime | Java, ejecutado en la máquina virtual Java (JVM). | PHP, ejecutado mediante el runtime de PHP. |
+| Ejecución | Puede ejecutarse como una aplicación independiente con un servidor integrado, como Tomcat. | Normalmente se sirve mediante un servidor web y PHP, por ejemplo, con PHP-FPM. También ofrece herramientas para el desarrollo local. |
+| Tipado y pruebas | Java utiliza tipado estático. Se pueden realizar pruebas unitarias y de integración con herramientas como JUnit. | PHP admite declaraciones de tipos, aunque su sistema de tipos es más flexible. Laravel incluye herramientas de pruebas y facilita las pruebas unitarias y de integración. |
+| Despliegue | Puede empaquetarse como JAR ejecutable y desplegarse en un entorno con una JVM compatible. | Se despliega en un entorno con PHP y sus dependencias instaladas, normalmente junto con un servidor web. |
+| Papel didáctico | Permite estudiar controladores, peticiones HTTP, serialización JSON, pruebas y configuración de una aplicación Java. | Permite estudiar rutas, controladores, middleware, acceso a datos y desarrollo web con PHP. |
 
-Conclusión contextual:
+### Conclusión contextual
+
+Spring Boot resulta adecuado para este laboratorio porque permite observar cómo una petición HTTP llega a un controlador Java y cómo el framework transforma los objetos devueltos en respuestas JSON. Además, el servidor integrado facilita ejecutar y probar la aplicación localmente.
+
+Laravel es una alternativa válida para desarrollar aplicaciones web con PHP y proporciona herramientas para organizar rutas, controladores, validación y acceso a datos. La elección entre ambos depende del lenguaje conocido por el equipo, los requisitos del proyecto, el entorno de despliegue y las tecnologías disponibles.
+
+Para este laboratorio, Spring Boot es apropiado porque el proyecto utiliza Java y permite estudiar de forma directa el recorrido de las peticiones y la generación de respuestas HTTP.
 
 ## 6. QUERY
 
