@@ -18,18 +18,39 @@
 
 ## 2. Trazas y errores
 
-Incluye solo fragmentos necesarios y sustituye secretos por `<REDACTED>`.
+### Traza de `GET /api/hello`
 
 ```http
-<traza sanitizada>
+> GET /api/hello HTTP/1.1
+> Host: localhost:8080
+> User-Agent: curl/8.21.0
+> Accept: */*
+
+< HTTP/1.1 200
+< Content-Type: application/json
+< Content-Length: 36
+
+{"message":"Hola desde el servidor"}
 ```
 
-Respuestas:
+**1. Método, destino, campos y contenido:**
 
-1. Método, destino, campos y contenido:
-2. Estados observados:
-3. Resultado de OPTIONS:
-4. Información que no debe aparecer en errores:
+La petición utiliza el método `GET` y tiene como destino `/api/hello` en el servidor local `localhost:8080`. Incluye las cabeceras `Host`, `User-Agent` y `Accept`. No contiene cuerpo, ya que se solicita una representación mediante `GET` sin enviar datos en la petición.
+
+**2. Estados observados:**
+
+- `GET /api/hello`: `200`, la petición se ha procesado correctamente y devuelve un objeto JSON.
+- `HEAD /api/hello`: `200`, devuelve las cabeceras de la respuesta sin incluir el cuerpo. Se observan `Content-Type: application/json` y `Content-Length: 36`.
+- `OPTIONS /api/hello`: `200`, devuelve la cabecera `Allow: GET,HEAD,OPTIONS`, que anuncia los métodos permitidos para esa ruta.
+- `GET /no-existe`: `404 Not Found`, indica que la ruta solicitada no existe. La respuesta contiene un objeto JSON con la fecha, el estado, el mensaje de error y la ruta solicitada.
+
+**3. Resultado de OPTIONS:**
+
+La petición `OPTIONS /api/hello` devuelve el estado `200` y la cabecera `Allow: GET,HEAD,OPTIONS`. Esto permite conocer los métodos que el servidor anuncia para esa ruta. La respuesta no contiene cuerpo (`Content-Length: 0`).
+
+**4. Información que no debe aparecer en errores:**
+
+Los errores no deberían revelar contraseñas, tokens, cookies de sesión, credenciales, variables de entorno, rutas internas innecesarias ni trazas completas de excepciones que puedan facilitar ataques. Es preferible devolver mensajes genéricos al cliente y guardar los detalles técnicos necesarios en registros protegidos del servidor. En las trazas compartidas deben sustituirse los secretos por `<REDACTED>`.
 
 ## 3. Frontera cliente-servidor
 
