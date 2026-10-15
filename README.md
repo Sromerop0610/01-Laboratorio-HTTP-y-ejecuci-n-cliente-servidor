@@ -83,11 +83,44 @@ Costes:
 
 ## 4. Recorrido y mecanismos
 
+### Recorrido de una petición
+
+Para una petición `GET /health`, el recorrido es el siguiente:
+
 ```text
-cliente -> ... -> respuesta
+Cliente (cURL o navegador)
+        |
+        | GET /health
+        v
+Servidor HTTP integrado (Tomcat)
+        |
+        v
+DispatcherServlet de Spring MVC
+        |
+        v
+HelloController.health()
+        |
+        v
+Spring convierte el Map en JSON
+        |
+        v
+Respuesta HTTP 200 + Content-Type: application/json
+        |
+        v
+Cliente recibe {"status":"UP"}
 ```
 
-Comparación con CGI y FastCGI:
+El cliente envía una petición HTTP al servidor. Tomcat recibe la conexión y Spring MVC dirige la petición al método del controlador correspondiente. En este caso, `HelloController.health()` devuelve un `Map` con el estado `UP`. Spring convierte ese objeto en JSON y envía la respuesta con el estado HTTP `200` y el tipo de contenido `application/json`.
+
+### Comparación con CGI y FastCGI
+
+En Hello Server, la aplicación Spring Boot permanece ejecutándose y atiende las peticiones mediante el servidor HTTP integrado Tomcat. No se inicia un nuevo proceso de aplicación para cada petición.
+
+Con **CGI**, el servidor web suele iniciar un proceso externo para ejecutar el programa que genera la respuesta. Crear procesos repetidamente puede añadir costes de tiempo y recursos.
+
+**FastCGI** mantiene procesos de aplicación disponibles para atender varias peticiones, evitando el coste de iniciar un proceso nuevo para cada una. De esta manera, reduce parte de la sobrecarga de CGI.
+
+En resumen, los tres mecanismos permiten generar respuestas dinámicas, pero difieren en cómo se ejecuta y se mantiene disponible la aplicación que las produce.
 
 ## 5. Spring Boot y Laravel
 
