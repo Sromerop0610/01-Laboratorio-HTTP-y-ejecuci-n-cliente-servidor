@@ -142,7 +142,35 @@ Para este laboratorio, Spring Boot es apropiado porque el proyecto utiliza Java 
 
 ## 6. QUERY
 
-1. Problema que resuelve:
-2. Seguridad e idempotencia:
-3. Contenido y `Content-Type`:
-4. Verificaciones necesarias para adoptarlo:
+**1. Problema que resuelve:**
+
+El método `QUERY` está planteado para enviar una consulta al servidor mediante el contenido de la petición, sin tener que incluir toda la consulta en la URL. Esto puede resultar útil para consultas complejas o con una gran cantidad de parámetros. Frente a `GET`, permite enviar la consulta en el cuerpo de la petición; frente a `POST`, pretende expresar de forma más específica que el objetivo es consultar información y no necesariamente crear o modificar recursos.
+
+**2. Seguridad e idempotencia:**
+
+La seguridad de `QUERY` depende de su definición y de cómo lo implementen el cliente, el servidor y los intermediarios HTTP. No debe suponerse que un método es seguro o idempotente únicamente por su nombre: hay que comprobar las garantías que establece su especificación. También es necesario verificar que la consulta no produzca modificaciones no deseadas y que se apliquen autenticación, autorización, validación y límites de tamaño adecuados.
+
+**3. Contenido y `Content-Type`:**
+
+Cuando una petición incluye una consulta en el cuerpo, el cliente debe indicar su formato mediante `Content-Type`, de acuerdo con el formato admitido por la implementación. El servidor debe interpretar el contenido según ese tipo y rechazar formatos no admitidos o datos inválidos. También hay que comprobar si la especificación establece requisitos adicionales para el cuerpo y su procesamiento.
+
+**4. Verificaciones necesarias para adoptarlo:**
+
+Antes de utilizar `QUERY` en un proyecto real, comprobaría:
+
+- La especificación aplicable y el estado de estandarización del método.
+- La compatibilidad del cliente, servidor, framework, proxy y demás intermediarios.
+- Las garantías de seguridad e idempotencia y sus consecuencias para el almacenamiento en caché y los reintentos.
+- Los formatos de contenido admitidos, la validación de los datos y los límites de tamaño.
+- Los mecanismos de autenticación, autorización, registro y tratamiento de errores.
+- Las pruebas de interoperabilidad y el comportamiento ante peticiones inválidas.
+
+No he ejecutado `QUERY` contra Hello Server porque las pruebas realizadas no demuestran que toda la cadena de herramientas lo admita. Antes de utilizarlo, sería necesario verificar la especificación y comprobar su compatibilidad en el entorno de destino.
+
+## Comprobación final
+
+- [X] No hay cookies, tokens ni credenciales reales.
+- [X] No hay rutas o datos personales innecesarios.
+- [X] Las trazas son texto y están sanitizadas.
+- [X] Puedo reproducir y explicar todo el contenido.
+- [X] No he utilizado IA generativa.
